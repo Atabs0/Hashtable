@@ -38,8 +38,14 @@ public class SimpleHashtable {
             return null;
         }
         Employee employee = hashtable[hashedkey].employee;
-        hashtable[hashedkey]=null;
-        return employee;
+        hashtable[hashedkey]=null;                             //rehashing is done here to avoid bugs in the code
+       StoredEmployee [] oldHashtable = hashtable;
+       for (int i=0; i<oldHashtable.length; i++){
+           if (oldHashtable[i] != null){
+               put(oldHashtable[i].key, oldHashtable[i].employee);
+           }
+       }
+         return employee;
    }
     private int hashkey(String key){
         return key.length()%hashtable.length;
